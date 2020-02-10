@@ -26,6 +26,7 @@ class Response(commands.Cog):
     async def test(self, ctx, *args):
         await ctx.send('{} arguments: {}'.format(len(args), ', '.join(args)))
 
+
 # sets up cog to allow it to be used by the bot in main
 def setup(bot):
     bot.add_cog(Response(bot))

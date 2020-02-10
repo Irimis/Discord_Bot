@@ -6,7 +6,7 @@ import os
 from discord.ext import commands
 import Functions
 
-# sets what prefix triggers the bot commands
+# Sets what prefix triggers the bot commands
 bot = commands.Bot(command_prefix='$')
 
 
@@ -22,8 +22,8 @@ async def on_disconnect():
     print('We have logged out of Discord!')
 
 
-""" Ideally the load and unload commands would be in the admin class, 
-however, I cannot get them to function in there"""
+""" While load, unload, and reload are admin functions, 
+it's outside the admin class so that it can never be removed accidentally"""
 # command allows user to load in new cogs after the bot is running
 @bot.command()
 @commands.has_permissions(manage_guild=True)
@@ -36,6 +36,13 @@ async def load(ctx, extension):
 @commands.has_permissions(manage_guild=True)
 async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
+
+
+# Update a cog to it's newest version, if there is an error the bot will rollback
+@bot.command()
+@commands.has_permissions(manage_guild=True)
+async def reload(ctx, extension):
+    bot.reload_extension(f'cogs.{extension}')
 
 
 # Load all cogs into bot
