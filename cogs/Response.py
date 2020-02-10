@@ -1,10 +1,11 @@
+"""The function of this will serve for basic chat responses such as: greeting new members,
+responding to basic pings, anything using simple text commands"""
+
 import discord
-import json
-import aiohttp
 from discord.ext import commands
 
 
-class Responses(commands.Cog):
+class Response(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -25,17 +26,6 @@ class Responses(commands.Cog):
     async def test(self, ctx, *args):
         await ctx.send('{} arguments: {}'.format(len(args), ', '.join(args)))
 
-    # Get price of bitcoin from coindesk & post it in usd in chat
-    @commands.command()
-    async def bitcoinPrice(self, ctx):
-        url = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
-        async with aiohttp.ClientSession() as session:  # Async HTTP request
-            raw_response = await session.get(url)
-            response = await raw_response.text()
-            response = json.loads(response)
-            await ctx.send("Bitcoin price is: $" + response['bpi']['USD']['rate'])
-
-
 # sets up cog to allow it to be used by the bot in main
 def setup(bot):
-    bot.add_cog(Responses(bot))
+    bot.add_cog(Response(bot))

@@ -1,8 +1,11 @@
+"""This class will be used for functions that are for: server admins, moderators, or the bot owner themselves
+to add or remove functionality or disable the bot"""
+
 import discord
 from discord.ext import commands
 
 
-class AdminTools(commands.Cog):
+class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -16,4 +19,4 @@ class AdminTools(commands.Cog):
 
 # sets up cog to be used by bot in main
 def setup(bot):
-    bot.add_cog(AdminTools(bot))
+    bot.add_cog(Admin(bot))
